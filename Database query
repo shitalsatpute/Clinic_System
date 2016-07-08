@@ -1,0 +1,85 @@
+ Server: localhost -  Database: hospital 
+
+-- phpMyAdmin SQL Dump
+-- version 3.2.0.1
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Jul 09, 2016 at 06:15 AM
+-- Server version: 5.1.36
+-- PHP Version: 5.3.0
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+--
+-- Database: `hospital`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `books_appt`
+--
+
+CREATE TABLE IF NOT EXISTS `books_appt` (
+  `patient_id` int(11) NOT NULL,
+  `doctor_id` int(11) NOT NULL,
+  `date` text NOT NULL,
+  `time` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `books_appt`
+--
+
+INSERT INTO `books_appt` (`patient_id`, `doctor_id`, `date`, `time`) VALUES
+(3, 1, 'jul7,2016', '10.00am-1.00pm'),
+(4, 1, 'july 7,2016', '2.00pm-5.00pm');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `doctor`
+--
+
+CREATE TABLE IF NOT EXISTS `doctor` (
+  `id` int(11) NOT NULL,
+  `name` text NOT NULL,
+  `speciality` text NOT NULL,
+  `contact` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `doctor`
+--
+
+INSERT INTO `doctor` (`id`, `name`, `speciality`, `contact`) VALUES
+(1, 'Dr.Richard Mathew', 'Dermatologist', '022-876554992');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `patient`
+--
+
+CREATE TABLE IF NOT EXISTS `patient` (
+  `id` int(11) NOT NULL,
+  `name` text NOT NULL,
+  `email` text NOT NULL,
+  `contact` text NOT NULL,
+  `age` text NOT NULL,
+  `address` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `patient`
+--
+
+INSERT INTO `patient` (`id`, `name`, `email`, `contact`, `age`, `address`) VALUES
+(103, 'Deepak paripati', 'deepakteja@gmail.com', '9869203669', '28', 'Evershine nagar,J-wing/501,Koramangla Road, Bengaluru'),
+(101, 'Shweta Paripati', 'shweta19990@gmail.com', '9819714607', '26', 'Evershine nagar,J-wing/501,Koramangla Road, Bengaluru.'),
+(102, 'Shital Satpute', 'shitalsatpute9@gmail.com', '9029856521', '21', 'Country park,L-wing /401,Opp.tata steel ltd,Borivli(east),Mum-66'),
+(104, 'Mrs.Jayshree satpute', 'jsatpute777@gmail.com', '9869631980', '49', 'Avenue park,K-wing,holstein road,90-Feet crossword,United States.'),
+(105, 'Mr.Rajendrakumar Satpute', 'rsatpute777@gmail.com', '9869203669', '50', 'Ekta Bhoomi,H-wing/801,Dattapada road,opp.Tata steel ltd,Borivli(E).');
+  
+  
