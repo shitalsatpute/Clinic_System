@@ -1,0 +1,96 @@
+com.controller/Doctor.java
+package com.controller;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import jdk.nashorn.internal.ir.RuntimeNode.Request;
+
+import com.beans.Patient;
+import com.model.Account;
+
+public class Doctor extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String action=request.getParameter("action");
+		if(action==null){
+			request.getRequestDispatcher("doctor_jsps/index.jsp").forward(request, response);
+		}
+	}
+
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String action=request.getParameter("action");
+		if(action.equals("today_appt")){
+			Account account = new Account();
+			ArrayList<Patient> list=new ArrayList<Patient>();
+			
+			try {
+				String id=request.getParameter("id");
+				list = account.fetchAppointment(1);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			request.setAttribute("list", list);
+			request.setAttribute("flag", 100);
+			request.getRequestDispatcher("doctor_jsps/index.jsp").forward(request, response);
+		 }
+		if(action.equals("view_history")){
+			String id=request.getParameter("id");
+			request.setAttribute("id", id);
+			request.getRequestDispatcher("doctor_jsps/view_history.jsp").forward(request, response);
+		}
+		if(action.equals("current_history")){
+			String current_history=request.getParameter("current_history");
+			String patient_id=request.getParameter("patient_id");
+			Account a = new Account();
+			try {
+			a.insertHistory(patient_id,current_history);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			request.setAttribute("id", patient_id);
+			request.setAttribute("msg", "History added successfully");
+			request.getRequestDispatcher("doctor_jsps/view_history.jsp").forward(request, response);
+		}
+		}
+		
+	}
+	
+	//com.controller/Controller servlet
+	package com.controller;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class Controller extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+    
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	String action=request.getParameter("action");
+	if(action==null){
+		request.getRequestDispatcher("main_jsps/index.jsp").forward(request, response);
+	}
+	else{
+		doPost(request,response);
+	}
+	
+	
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+	}
+
+}
+
+
