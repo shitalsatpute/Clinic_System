@@ -35,3 +35,41 @@
 </body><br><br><br>
 <c:import url="../main_jsps/footer.jsp"></c:import>
 </html>
+
+//view_history.jsp
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="sql" %>
+     <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+       <html>
+       <head>
+    <sql:setDataSource var="ds" driver="com.mysql.jdbc.Driver"
+    url="jdbc:mysql://localhost/Hospital"
+    user="root" password=""/>
+    <sql:query dataSource="${ds}" var="result">
+   select * from patient,history where patient.id=history.patient_id AND patient.id=<c:out value=${id }/>
+    order by history.id desc
+    </sql:query>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+
+</head>
+<body>
+<h2>Diagnosis</h2>
+<font color="green"><b><c:out value="${msg }"></c:out></b><font>
+<br>
+<form method="post" action="<%=request.getContextPath() %>/Doctor">
+<input type="hidden" name="action" value="current_history"/>
+<input type="hidden" name="patient_id" value='<c:out value="${id}"/>'/>
+<textarea name="current_history">Enter todays diagnosis</textarea>
+<br>
+<input type="submit" name="submit" value="Record diagnosis">
+<h2>Patient history</h2>
+<c:forEach var="row" items="${result.rows }">
+<h3 ><c:out value="${row.date }"/></h3>
+<c:out value="${row.history }"></c:out>
+</c:forEach>
+</form>
+</body>
+</html>
